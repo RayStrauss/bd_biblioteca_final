@@ -1,15 +1,6 @@
-create database bd_biblioteca5;
-use bd_biblioteca5;
+create database bd_biblioteca;
+use bd_biblioteca;
 
-create table livro (
-id_livro int not null auto_increment primary key,
-nome_livro varchar (200),
-genero_livro varchar (200),
-cod_livro varchar(15),
-id_autor int,
-id_editora int
-)default charset = utf8; 
- 
 create table editora (
 id_editora int not null auto_increment primary key,
 nome_editora varchar (200),
@@ -24,52 +15,55 @@ telefone_autor varchar (200),
 sexo_autor enum ('m','f')
 )default charset = utf8; 
 
-create table prof (
+create table livro (
+id_livro int not null auto_increment primary key,
+nome_livro varchar (200),
+genero_livro varchar (200),
+cod_livro varchar(15),
+id_autor int,
+id_editora int
+)default charset = utf8; 
+alter table livro add constraint fk_autor foreign key (id_autor) @ autor(id_autor);
+alter table livro add constraint fk_editora foreign key(id_editora) @ editora(id_editora);
+ 
+create table usuario (
 id_usuario int not null auto_increment primary key,
-nome_prof varchar (200),
-cod_prof varchar (200),
-telefone_prof varchar (200),
+nome_usuario varchar (200),
+cod_usuario varchar (200),
+telefone_usuario varchar (200),
 tipo_usuario varchar (200),
 endereco varchar (200)
 )default charset = utf8; 
 
 create table emprestimo(
 id_emprestimo int not null auto_increment primary key,
-id_livro int,
 data_emprestimo date,
-id_aluno int,
+data_devolucao date,
+id_livro int,
 id_usuario int
 )default charset = utf8; 
 
-alter table livro add constraint fk_id_autor foreign key (id_autor) references autor(id_autor);
-alter table livro add constraint fk_id_editora foreign key(id_editora) references editora(id_editora);
-alter table emprestimo add constraint fk_id_livro foreign key(id_livro) references livro(id_livro);
-alter table emprestimo add constraint fk_id_usuario foreign key(id_usuario) references prof(id_usuario);
+alter table emprestimo add constraint fk_livro foreign key(id_livro) references livro(id_livro);
+alter table emprestimo add constraint fk_usuario foreign key(id_usuario) references usuario(id_usuario);
 
-
-insert into livro (nome_livro, genero_livro, cod_livro, id_autor, id_editora)
-values ('1 dia sem vc', 'romance', '1','1','1');
-
-insert into livro (nome_livro, genero_livro, cod_livro)
-values ('cinderela', 'fantasia', '2');
-
-insert into autor (nome_autor, telefone_autor, sexo_autor)
-values ('vitoria', '12345678','f');
 
 insert into editora (nome_editora, telefone, endereco)
-values ('edit', '51323255', 'sao paulo');
+values ('Vida Nova', '4192637499', 'Av. das Flores, Curitiba');
 
-insert into prof (nome_prof, cod_prof, telefone_prof, tipo_usuario, endereco)
-values ('gabriela', '123', '1','professor', 'sao matheus');
+insert into autor (nome_autor, telefone_autor, sexo_autor)
+values ('Lucas Marques', '4184592834','M');
 
-insert into prof (nome_prof, cod_prof, telefone_prof, tipo_usuario, endereco)
-values ('geovana', '2', '2', 'prof', 'sao matheus');
+insert into livro (nome_livro, genero_livro, cod_livro, id_autor, id_editora)
+values ('Geografia - Nordeste', 'Educacional', '57269', '1', '1');
+
+insert into usuario (nome_usuario, cod_usuario, telefone_usuario, tipo_usuario, endereco)
+values ('Liara', '864', '4197297355','Aluno', 'R. Cumbui');
  
-insert into emprestimo (data_emprestimo, id_aluno, id_livro)
-values ( '2022.09.30','2','1');
+insert into emprestimo (data_emprestimo, data_devolucao, id_livro, id_usuario)
+values ('2022.09.30', '2022-10-07', '1', '1');
 
-select*from livro;
 select*from editora;
 select*from autor;
-select*from prof;
+select*from livro;
+select*from usuario;
 select*from emprestimo;
