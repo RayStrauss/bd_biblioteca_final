@@ -23,8 +23,8 @@ cod_livro varchar(15),
 id_autor int,
 id_editora int
 )default charset = utf8; 
-alter table livro add constraint fk_autor foreign key (id_autor) @ autor(id_autor);
-alter table livro add constraint fk_editora foreign key(id_editora) @ editora(id_editora);
+alter table livro add constraint fk_autor foreign key (id_autor) references autor(id_autor);
+alter table livro add constraint fk_editora foreign key(id_editora) references editora(id_editora);
  
 create table usuario (
 id_usuario int not null auto_increment primary key,
