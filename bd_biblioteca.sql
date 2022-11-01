@@ -3,22 +3,22 @@ use bd_biblioteca;
 
 create table editora (
 id_editora int not null auto_increment primary key,
-nome_editora varchar (200),
-telefone  varchar (200),
-endereco varchar (200)
+nome_editora varchar (100),
+telefone  varchar (20),
+endereco varchar (100)
 )default charset = utf8; 
 
 create table autor(
 id_autor int not null auto_increment primary key,
-nome_autor varchar (200),
-telefone_autor varchar (200),
-sexo_autor enum ('m','f')
+nome_autor varchar (100),
+telefone_autor varchar (20),
+sexo_autor enum ('M','F')
 )default charset = utf8; 
 
 create table livro (
 id_livro int not null auto_increment primary key,
 nome_livro varchar (200),
-genero_livro varchar (200),
+genero_livro varchar (50),
 cod_livro varchar(15),
 id_autor int,
 id_editora int
@@ -28,11 +28,10 @@ alter table livro add constraint fk_editora foreign key(id_editora) references e
  
 create table usuario (
 id_usuario int not null auto_increment primary key,
-nome_usuario varchar (200),
-cod_usuario varchar (200),
-telefone_usuario varchar (200),
-tipo_usuario varchar (200),
-endereco varchar (200)
+nome_usuario varchar (100),
+telefone_usuario varchar (20),
+tipo_usuario varchar (20),
+endereco varchar (100)
 )default charset = utf8; 
 
 create table emprestimo(
@@ -56,8 +55,8 @@ values ('Lucas Marques', '4184592834','M');
 insert into livro (nome_livro, genero_livro, cod_livro, id_autor, id_editora)
 values ('Geografia - Nordeste', 'Educacional', '57269', '1', '1');
 
-insert into usuario (nome_usuario, cod_usuario, telefone_usuario, tipo_usuario, endereco)
-values ('Liara', '864', '4197297355','Aluno', 'R. Cumbui');
+insert into usuario (nome_usuario, telefone_usuario, tipo_usuario, endereco)
+values ('Liara', '4197297355','Aluno', 'R. Cumbui');
  
 insert into emprestimo (data_emprestimo, data_devolucao, id_livro, id_usuario)
 values ('2022.09.30', '2022-10-07', '1', '1');
